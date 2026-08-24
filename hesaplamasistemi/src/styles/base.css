@@ -1,0 +1,442 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  /* Mühür animasyonu kısa süreliğine kart dışına taştığı için yatay kaydırma
+     çubuğu çıkmasın; `clip` (hidden değil) sticky başlığı bozmaz. */
+  overflow-x: clip;
+  background: var(--zemin);
+  color: var(--murekkep);
+  font-family: var(--yazi-govde);
+  font-size: 1.0625rem;
+  line-height: 1.62;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--yazi-baslik);
+  font-weight: 800;
+  letter-spacing: -0.028em;
+  line-height: 1.04;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: var(--kirmizi-koyu);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--kirmizi);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ------------------------------------------------------------------ yerleşim */
+
+.kabuk {
+  width: 100%;
+  max-width: var(--sayfa-genislik);
+  margin-inline: auto;
+  padding-inline: var(--kenar);
+}
+
+.kabuk--dar {
+  max-width: var(--dar-genislik);
+}
+
+/* Sonuç sayfası tablo ve şerit taşıdığı için formdan biraz daha geniştir. */
+.kabuk--sonuc {
+  max-width: 940px;
+}
+
+.atla-baglantisi {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--murekkep);
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 var(--kose-kucuk) 0;
+}
+
+.atla-baglantisi:focus {
+  left: 0;
+}
+
+/* ------------------------------------------------------------------- tipografi */
+
+.ustyazi {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--yazi-veri);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--kirmizi);
+  margin: 0;
+}
+
+.ustyazi--sessiz {
+  color: var(--murekkep-acik);
+}
+
+.dev-baslik {
+  font-size: var(--olcu-dev);
+  letter-spacing: -0.042em;
+  line-height: 0.96;
+}
+
+.bolum-baslik {
+  font-size: var(--olcu-buyuk);
+}
+
+.alt-baslik {
+  font-size: var(--olcu-orta);
+}
+
+.lede {
+  font-size: clamp(1.05rem, 1.9vw, 1.2rem);
+  color: var(--murekkep-orta);
+  max-width: 54ch;
+}
+
+.veri {
+  font-family: var(--yazi-veri);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+.vurgu-kirmizi {
+  color: var(--kirmizi);
+}
+
+/* --------------------------------------------------------------------- butonlar */
+
+.dugme {
+  --dugme-zemin: var(--kirmizi);
+  --dugme-yazi: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3.25rem;
+  padding: 0.85rem 1.6rem;
+  border: 1.5px solid transparent;
+  border-radius: var(--kose-hap);
+  background: var(--dugme-zemin);
+  color: var(--dugme-yazi);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition:
+    transform var(--gecis),
+    background-color var(--gecis),
+    border-color var(--gecis),
+    box-shadow var(--gecis);
+  text-decoration: none;
+}
+
+.dugme:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.dugme:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.dugme:disabled {
+  opacity: 0.55;
+  cursor: progress;
+  transform: none;
+}
+
+.dugme--birincil {
+  box-shadow: 0 12px 26px -14px rgba(215, 0, 20, 0.85);
+}
+
+.dugme--birincil:hover:not(:disabled) {
+  --dugme-zemin: var(--kirmizi-koyu);
+}
+
+.dugme--ikincil {
+  --dugme-zemin: transparent;
+  --dugme-yazi: var(--murekkep);
+  border-color: var(--cizgi-koyu);
+}
+
+.dugme--ikincil:hover:not(:disabled) {
+  --dugme-zemin: var(--kagit);
+  border-color: var(--murekkep);
+}
+
+.dugme--yesil {
+  --dugme-zemin: var(--yesil);
+  box-shadow: 0 12px 26px -14px rgba(16, 137, 63, 0.8);
+}
+
+.dugme--yesil:hover:not(:disabled) {
+  --dugme-zemin: var(--yesil-koyu);
+}
+
+.dugme--genis {
+  width: 100%;
+}
+
+.dugme--iri {
+  min-height: 3.75rem;
+  font-size: 1.075rem;
+  padding-inline: 2rem;
+}
+
+.metin-dugme {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 0;
+  background: none;
+  padding: 0.4rem 0.15rem;
+  color: var(--kirmizi-koyu);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: var(--kirmizi-cizgi);
+}
+
+.metin-dugme:hover {
+  text-decoration-color: currentColor;
+}
+
+/* ------------------------------------------------------------------ yüzeyler */
+
+.belge {
+  background: var(--kagit);
+  border: 1px solid var(--cizgi);
+  border-radius: var(--kose);
+  box-shadow: var(--golge-belge);
+}
+
+/* Kopar-çizgisi: belgeyi bölümlere ayıran perfore hat. */
+.kopar-cizgi {
+  position: relative;
+  border: 0;
+  border-top: 1.5px dashed var(--cizgi-koyu);
+  margin: 0;
+}
+
+.kopar-cizgi::before,
+.kopar-cizgi::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--zemin);
+  border: 1px solid var(--cizgi);
+  transform: translateY(-50%);
+}
+
+.kopar-cizgi::before {
+  left: -10px;
+  clip-path: inset(0 0 0 50%);
+}
+
+.kopar-cizgi::after {
+  right: -10px;
+  clip-path: inset(0 50% 0 0);
+}
+
+/* --------------------------------------------------------------------- damga */
+
+/*
+ * Sitenin imza öğesi: teslimat ayına vurulan kırmızı ıslak mühür.
+ * Ana ekranda, sonuç ekranında ve PDF'te aynı biçimde görünür.
+ */
+.damga {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  padding: 0.5rem 1.1rem 0.55rem;
+  border: 2.5px solid var(--kirmizi);
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1.5px #fff, inset 0 0 0 3.5px var(--kirmizi);
+  color: var(--kirmizi);
+  font-family: var(--yazi-veri);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  line-height: 1.1;
+  background: rgba(255, 255, 255, 0.62);
+  transform: rotate(-5deg);
+  mix-blend-mode: multiply;
+  white-space: nowrap;
+}
+
+.damga__ust {
+  font-size: 0.58em;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.damga__ana {
+  font-size: 0.95em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.damga--iri {
+  padding: 0.75rem 1.6rem 0.8rem;
+  border-width: 3px;
+}
+
+.damga--iri .damga__ust {
+  font-size: 0.7em;
+}
+
+.damga--iri .damga__ana {
+  font-size: 1.4em;
+}
+
+@keyframes damga-vur {
+  0% {
+    opacity: 0;
+    transform: rotate(-14deg) scale(1.9);
+  }
+  70% {
+    opacity: 1;
+    transform: rotate(-4deg) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(-5deg) scale(1);
+  }
+}
+
+.damga--vur {
+  animation: damga-vur 520ms cubic-bezier(0.2, 1.3, 0.4, 1) backwards;
+}
+
+/* ------------------------------------------------------------------- rozetler */
+
+.rozet {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--kose-hap);
+  background: var(--kirmizi-sis);
+  color: var(--kirmizi-koyu);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.rozet--sessiz {
+  background: var(--zemin-koyu);
+  color: var(--murekkep-orta);
+}
+
+.rozet--yesil {
+  background: #e6f5eb;
+  color: var(--yesil-koyu);
+}
+
+/* --------------------------------------------------------------------- notlar */
+
+.not {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--kose-kucuk);
+  background: var(--zemin);
+  border: 1px solid var(--cizgi);
+  font-size: 0.92rem;
+  color: var(--murekkep-orta);
+}
+
+.not svg {
+  flex: none;
+  margin-top: 0.15rem;
+  color: var(--murekkep-acik);
+}
+
+.not--uyari {
+  background: var(--amber-sis);
+  border-color: #f3ddb8;
+  color: var(--amber);
+}
+
+.not--uyari svg {
+  color: var(--amber);
+}
+
+.gorsel-gizli {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes yumusak-giris {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.giris {
+  animation: yumusak-giris 520ms cubic-bezier(0.22, 0.68, 0.3, 1) backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .giris,
+  .damga--vur {
+    animation: none;
+  }
+
+  .dugme:hover:not(:disabled) {
+    transform: none;
+  }
+}

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Anahtar Ayı">
+  <rect width="64" height="64" rx="14" fill="#d70014" />
+  <g fill="none" stroke="#ffffff" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="40" cy="24" r="9" />
+    <path d="M33.6 30.4 18 46l4 4" />
+    <path d="m25 43 3.5 3.5" />
+  </g>
+</svg>

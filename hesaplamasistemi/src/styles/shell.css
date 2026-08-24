@@ -1,0 +1,222 @@
+/* Üst bar, alt bilgi ve sabit WhatsApp düğmesi. */
+
+.ust-bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(246, 241, 240, 0.86);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--cizgi);
+}
+
+.ust-bar__ic {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 4.25rem;
+}
+
+.marka {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  border: 0;
+  background: none;
+  padding: 0.35rem;
+  margin-inline-start: -0.35rem;
+  cursor: pointer;
+  text-align: start;
+  text-decoration: none;
+  color: inherit;
+}
+
+.marka__isaret {
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 9px;
+  background: var(--kirmizi);
+  color: #fff;
+  flex: none;
+}
+
+.marka__isaret svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.marka__yazi {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.marka__ad {
+  font-family: var(--yazi-baslik);
+  font-weight: 800;
+  font-size: 1.08rem;
+  letter-spacing: -0.03em;
+}
+
+.marka__alt {
+  font-size: 0.76rem;
+  color: var(--murekkep-orta);
+  letter-spacing: -0.005em;
+}
+
+.ust-bar__ara {
+  flex: 1;
+}
+
+.ust-bar__telefon {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--kose-hap);
+  border: 1.5px solid var(--cizgi-koyu);
+  background: var(--kagit);
+  color: var(--murekkep);
+  font-weight: 700;
+  font-size: 0.92rem;
+  text-decoration: none;
+}
+
+.ust-bar__telefon:hover {
+  border-color: var(--kirmizi);
+  color: var(--kirmizi-koyu);
+}
+
+.ust-bar__geri {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 0;
+  background: none;
+  padding: 0.55rem 0.35rem;
+  color: var(--murekkep-orta);
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+
+.ust-bar__geri:hover {
+  color: var(--kirmizi-koyu);
+}
+
+@media (min-width: 800px) {
+  .ust-bar__telefon {
+    display: inline-flex;
+  }
+}
+
+/* ------------------------------------------------------------ WhatsApp düğmesi */
+
+.wp-dugme {
+  position: fixed;
+  right: clamp(0.9rem, 3vw, 1.75rem);
+  bottom: clamp(0.9rem, 3vw, 1.75rem);
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.85rem 1.25rem 0.85rem 1rem;
+  border-radius: var(--kose-hap);
+  background: var(--yesil);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  box-shadow: 0 16px 34px -16px rgba(11, 108, 49, 0.9);
+  transition:
+    transform var(--gecis),
+    background-color var(--gecis);
+}
+
+.wp-dugme:hover {
+  background: var(--yesil-koyu);
+  transform: translateY(-2px);
+}
+
+.wp-dugme svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex: none;
+}
+
+.wp-dugme__yazi {
+  display: none;
+}
+
+@media (min-width: 620px) {
+  .wp-dugme__yazi {
+    display: inline;
+  }
+}
+
+/* ------------------------------------------------------------------ alt bilgi */
+
+.alt-bilgi {
+  margin-top: var(--bosluk-bolum);
+  border-top: 1px solid var(--cizgi);
+  background: var(--kagit);
+  padding-block: clamp(2.5rem, 5vw, 3.5rem) 6.5rem;
+}
+
+.alt-bilgi__ic {
+  display: grid;
+  gap: 2rem;
+}
+
+.alt-bilgi__ust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2.5rem;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.alt-bilgi__kisi {
+  display: flex;
+  gap: 0.9rem;
+  align-items: center;
+}
+
+.alt-bilgi__ad {
+  font-family: var(--yazi-baslik);
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: -0.03em;
+  display: block;
+}
+
+.alt-bilgi__unvan {
+  font-size: 0.9rem;
+  color: var(--murekkep-orta);
+}
+
+.alt-bilgi__iletisim {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.95rem;
+}
+
+.alt-bilgi__iletisim a {
+  color: var(--murekkep);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.alt-bilgi__iletisim a:hover {
+  color: var(--kirmizi-koyu);
+  text-decoration: underline;
+}
+
+.alt-bilgi__yasal {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--murekkep-acik);
+  max-width: 70ch;
+}

@@ -1,0 +1,473 @@
+/* Karşılama sayfası. */
+
+.giris-bolumu {
+  padding-block: clamp(2.5rem, 6vw, 4.75rem) clamp(2rem, 5vw, 3.5rem);
+}
+
+.giris-izgara {
+  display: grid;
+  gap: clamp(2.25rem, 5vw, 3.5rem);
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .giris-izgara {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  }
+
+  .takvim-kart {
+    max-width: none;
+    margin-inline: 0;
+  }
+}
+
+.giris-metin > * + * {
+  margin-top: 1.15rem;
+}
+
+.giris-metin .dev-baslik {
+  margin-top: 0.9rem;
+}
+
+.giris-metin em {
+  font-style: normal;
+  color: var(--kirmizi);
+  position: relative;
+  white-space: nowrap;
+}
+
+.giris-metin em::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.06em;
+  height: 0.11em;
+  background: var(--kirmizi-cizgi);
+  border-radius: 2px;
+}
+
+.guven-satiri {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.35rem;
+  margin-top: 1.4rem;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9rem;
+  color: var(--murekkep-orta);
+  font-weight: 600;
+}
+
+.guven-satiri li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.guven-satiri svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  color: var(--yesil);
+  flex: none;
+}
+
+/* --------------------------------------------------------- takvim kartı (imza) */
+
+.takvim-kart {
+  position: relative;
+  /* Tek sütunlu yerleşimde kart aşırı genişleyip takvim hücrelerini şişirmesin. */
+  width: 100%;
+  max-width: 30rem;
+  margin-inline: auto;
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  background: var(--kagit);
+  border: 1px solid var(--cizgi);
+  border-radius: var(--kose);
+  box-shadow: var(--golge-belge);
+}
+
+.takvim-kart__ust {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1.5px dashed var(--cizgi-koyu);
+}
+
+.takvim-kart__etiket {
+  font-family: var(--yazi-veri);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--murekkep-acik);
+}
+
+.takvim-kart__tutar {
+  font-family: var(--yazi-baslik);
+  font-weight: 800;
+  font-size: 1.55rem;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+}
+
+.takvim-izgara {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-top: 1.1rem;
+}
+
+.takvim-hucre {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  aspect-ratio: 1 / 0.72;
+  border-radius: 10px;
+  border: 1px solid var(--cizgi);
+  background: var(--zemin);
+  animation: yumusak-giris 340ms ease backwards;
+}
+
+.takvim-hucre__ay {
+  font-family: var(--yazi-veri);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--murekkep-orta);
+}
+
+.takvim-hucre__yil {
+  font-size: 0.62rem;
+  color: var(--murekkep-acik);
+  letter-spacing: 0.04em;
+}
+
+.takvim-hucre--teslim {
+  background: var(--kirmizi);
+  border-color: var(--kirmizi);
+  box-shadow: 0 10px 22px -12px rgba(215, 0, 20, 0.9);
+}
+
+.takvim-hucre--teslim .takvim-hucre__ay,
+.takvim-hucre--teslim .takvim-hucre__yil {
+  color: #fff;
+  font-weight: 700;
+}
+
+/*
+ * Dar ekranda mühür akışın içinde, takvimin hemen altında durur; geniş ekranda
+ * belgenin sağ üst köşesine vurulmuş gibi konumlanır.
+ */
+.takvim-kart__damga {
+  margin: 1.1rem 0 -0.2rem 0.2rem;
+  font-size: 0.92rem;
+}
+
+@media (min-width: 520px) {
+  .takvim-kart__ust {
+    padding-right: min(9rem, 44%);
+  }
+
+  .takvim-kart__damga {
+    position: absolute;
+    right: -0.4rem;
+    top: 0.9rem;
+    margin: 0;
+    font-size: 1rem;
+    z-index: 2;
+  }
+}
+
+.takvim-kart__alt {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.75rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--cizgi);
+}
+
+.takvim-kart__olcu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.takvim-kart__olcu span {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--murekkep-acik);
+  font-weight: 700;
+}
+
+.takvim-kart__olcu strong {
+  font-family: var(--yazi-veri);
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* ------------------------------------------------------------------ mod kartları */
+
+.mod-izgara {
+  display: grid;
+  gap: 1rem;
+  margin-top: clamp(2rem, 4.5vw, 3.25rem);
+}
+
+@media (min-width: 640px) {
+  .mod-izgara {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.mod-kart {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.45rem;
+  padding: 1.35rem 1.4rem 1.25rem;
+  border: 1.5px solid var(--cizgi-koyu);
+  border-radius: var(--kose);
+  background: var(--kagit);
+  cursor: pointer;
+  text-align: start;
+  transition:
+    border-color var(--gecis),
+    transform var(--gecis),
+    box-shadow var(--gecis);
+}
+
+.mod-kart:hover {
+  border-color: var(--kirmizi);
+  transform: translateY(-3px);
+  box-shadow: var(--golge-yukselti);
+}
+
+.mod-kart__ikon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 11px;
+  background: var(--kirmizi-sis);
+  color: var(--kirmizi);
+  margin-bottom: 0.35rem;
+}
+
+.mod-kart__ikon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.mod-kart__ad {
+  font-family: var(--yazi-baslik);
+  font-weight: 800;
+  font-size: 1.18rem;
+  letter-spacing: -0.03em;
+}
+
+.mod-kart__aciklama {
+  font-size: 0.94rem;
+  color: var(--murekkep-orta);
+  line-height: 1.5;
+}
+
+.mod-kart__eylem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.7rem;
+  color: var(--kirmizi-koyu);
+  font-weight: 700;
+  font-size: 0.93rem;
+}
+
+.mod-kart:hover .mod-kart__eylem svg {
+  transform: translateX(3px);
+}
+
+.mod-kart__eylem svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  transition: transform var(--gecis);
+}
+
+/* ------------------------------------------------------------------- adım şeridi */
+
+.adim-bolumu {
+  padding-block: var(--bosluk-bolum) 0;
+}
+
+.bolum-kapak {
+  display: grid;
+  gap: 0.7rem;
+  max-width: 62ch;
+  margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.bolum-kapak--orta {
+  margin-inline: auto;
+  text-align: center;
+  justify-items: center;
+}
+
+.adim-izgara {
+  display: grid;
+  gap: 1rem;
+  counter-reset: adim;
+}
+
+@media (min-width: 720px) {
+  .adim-izgara {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.adim {
+  position: relative;
+  padding: 1.5rem 1.4rem 1.4rem;
+  background: var(--kagit);
+  border: 1px solid var(--cizgi);
+  border-radius: var(--kose);
+}
+
+.adim__no {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 50%;
+  border: 2px solid var(--kirmizi);
+  color: var(--kirmizi);
+  font-family: var(--yazi-veri);
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 0.85rem;
+}
+
+.adim h3 {
+  font-size: 1.12rem;
+  margin-bottom: 0.4rem;
+}
+
+.adim p {
+  font-size: 0.94rem;
+  color: var(--murekkep-orta);
+  line-height: 1.55;
+}
+
+/* ------------------------------------------------------------------ danışman */
+
+.danisman-bolumu {
+  padding-block: var(--bosluk-bolum) 0;
+}
+
+.danisman-kart {
+  display: grid;
+  gap: 1.5rem;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  background: var(--murekkep);
+  color: #fff;
+  border-radius: var(--kose);
+  overflow: hidden;
+  position: relative;
+}
+
+/* İki sütuna ancak metin sütununa yetecek yer kaldığında geçilir. */
+@media (min-width: 1040px) {
+  .danisman-kart {
+    grid-template-columns: minmax(24rem, 1fr) minmax(0, auto);
+    align-items: center;
+    gap: 2.5rem;
+  }
+}
+
+.danisman-kart::after {
+  content: '';
+  position: absolute;
+  inset-inline-end: -18%;
+  inset-block-start: -60%;
+  width: 60%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(215, 0, 20, 0.5), transparent 68%);
+  pointer-events: none;
+}
+
+.danisman-kart__metin {
+  position: relative;
+  z-index: 1;
+}
+
+.danisman-kart__ad {
+  font-family: var(--yazi-baslik);
+  font-weight: 800;
+  font-size: clamp(1.6rem, 3.4vw, 2.15rem);
+  letter-spacing: -0.035em;
+  margin-block: 0.5rem 0.35rem;
+}
+
+.danisman-kart__unvan {
+  color: #f4dcdf;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.danisman-kart__soz {
+  margin-top: 1rem;
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 46ch;
+  font-size: 0.98rem;
+}
+
+.danisman-kart__eylemler {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.danisman-kart .dugme--ikincil {
+  --dugme-yazi: #fff;
+  border-color: rgba(255, 255, 255, 0.32);
+}
+
+.danisman-kart .dugme--ikincil:hover {
+  --dugme-zemin: rgba(255, 255, 255, 0.1);
+  border-color: #fff;
+}
+
+/* ---------------------------------------------------------- telefona ekle kartı */
+
+.kur-kart {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-top: 1.25rem;
+  padding: 1.25rem 1.4rem;
+  border: 1.5px dashed var(--cizgi-koyu);
+  border-radius: var(--kose);
+  background: var(--kagit);
+}
+
+.kur-kart__metin {
+  flex: 1 1 18rem;
+}
+
+.kur-kart h3 {
+  font-size: 1.08rem;
+  margin-bottom: 0.25rem;
+}
+
+.kur-kart p {
+  font-size: 0.92rem;
+  color: var(--murekkep-orta);
+}
