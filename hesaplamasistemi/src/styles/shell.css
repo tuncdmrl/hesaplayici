@@ -30,39 +30,98 @@
   color: inherit;
 }
 
+/*
+ * Marka rozeti: kırmızı degrade + içeriden ışık, dışarıya kırmızıya çalan
+ * gölge. Üzerindeki ::after katmanı cam parlaması, ::before ise dışa taşan
+ * yumuşak halesi.
+ */
 .marka__isaret {
+  position: relative;
   display: grid;
   place-items: center;
-  width: 2.4rem;
-  height: 2.4rem;
-  border-radius: 9px;
-  background: var(--kirmizi);
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 13px;
+  background: linear-gradient(148deg, #ff4356 0%, var(--kirmizi) 46%, var(--kirmizi-derin) 100%);
   color: #fff;
   flex: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -7px 14px -8px rgba(60, 0, 6, 0.85),
+    0 6px 14px -6px rgba(215, 0, 20, 0.55),
+    0 14px 26px -16px rgba(23, 9, 12, 0.65);
+  transition:
+    transform var(--gecis),
+    box-shadow var(--gecis);
+}
+
+.marka__isaret::before {
+  content: '';
+  position: absolute;
+  inset: -18%;
+  border-radius: inherit;
+  background: radial-gradient(closest-side, rgba(215, 0, 20, 0.28), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--gecis);
+  pointer-events: none;
+}
+
+.marka__isaret::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(118% 88% at 22% 6%, rgba(255, 255, 255, 0.5), transparent 58%);
+  pointer-events: none;
 }
 
 .marka__isaret svg {
-  width: 1.35rem;
-  height: 1.35rem;
+  position: relative;
+  z-index: 1;
+  width: 1.5rem;
+  height: 1.5rem;
+  filter: drop-shadow(0 1.5px 1.5px rgba(70, 0, 8, 0.45));
+}
+
+.marka:hover .marka__isaret {
+  transform: translateY(-1.5px) scale(1.04);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -7px 14px -8px rgba(60, 0, 6, 0.85),
+    0 10px 20px -8px rgba(215, 0, 20, 0.6),
+    0 18px 30px -16px rgba(23, 9, 12, 0.7);
+}
+
+.marka:hover .marka__isaret::before {
+  opacity: 1;
+}
+
+.marka:active .marka__isaret {
+  transform: translateY(0) scale(0.98);
 }
 
 .marka__yazi {
   display: flex;
   flex-direction: column;
+  min-width: 0;
   line-height: 1.15;
 }
 
 .marka__ad {
   font-family: var(--yazi-baslik);
   font-weight: 800;
-  font-size: 1.08rem;
+  font-size: clamp(0.97rem, 3.2vw, 1.08rem);
   letter-spacing: -0.03em;
+  white-space: nowrap;
 }
 
 .marka__alt {
   font-size: 0.76rem;
   color: var(--murekkep-orta);
   letter-spacing: -0.005em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ust-bar__ara {

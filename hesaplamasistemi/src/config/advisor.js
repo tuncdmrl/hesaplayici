@@ -24,7 +24,7 @@ export const advisor = Object.freeze({
 })
 
 export const site = Object.freeze({
-  name: 'Anahtar Ayı',
+  name: 'Ödeme Planı Hesaplayıcı',
   tagline: 'Faizsiz tasarruf finansmanı ödeme planı hesaplayıcı',
   /** PDF ve paylaşımlarda kullanılan yasal uyarı. */
   disclaimer:

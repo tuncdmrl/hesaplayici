@@ -109,7 +109,10 @@ export class PlanPdfDocument {
       weight: 'bold',
       color: RENK.kirmizi,
     })
-    this.#yaz('Ödeme planı ön hesaplaması', SAYFA.kenar, 20.5, { size: 9, color: RENK.orta })
+    this.#yaz('Faizsiz tasarruf finansmanı ön hesaplaması', SAYFA.kenar, 20.5, {
+      size: 9,
+      color: RENK.orta,
+    })
 
     const bugun = new Intl.DateTimeFormat('tr-TR', { dateStyle: 'long' }).format(new Date())
     this.#yaz(bugun, SAYFA.genislik - SAYFA.kenar, 15, {

@@ -152,8 +152,30 @@ export function HomePage() {
 
           <CalendarCard plan={ornek} />
         </div>
+      </section>
 
+      <section className="adim-bolumu" aria-labelledby="adim-baslik">
         <div className="kabuk">
+          <div className="bolum-kapak bolum-kapak--orta">
+            <p className="ustyazi">Formül yok, sürpriz yok</p>
+            <h2 className="bolum-baslik" id="adim-baslik">
+              Üç adımda anlaşılır sonuç
+            </h2>
+          </div>
+
+          <div className="adim-izgara">
+            {ADIMLAR.map((adim, index) => (
+              <article className="adim" key={adim.baslik}>
+                <span className="adim__no" aria-hidden="true">
+                  {index + 1}
+                </span>
+                <h3>{adim.baslik}</h3>
+                <p>{adim.metin}</p>
+              </article>
+            ))}
+          </div>
+
+          {/* Hesaplama girişi, üç adımı okuduktan hemen sonra gelir. */}
           <div className="mod-izgara">
             <button className="mod-kart" type="button" onClick={() => baslat('delivery')}>
               <span className="mod-kart__ikon">
@@ -180,29 +202,6 @@ export function HomePage() {
                 Bütçemi yazayım <Icon name="arrowRight" />
               </span>
             </button>
-          </div>
-        </div>
-      </section>
-
-      <section className="adim-bolumu" aria-labelledby="adim-baslik">
-        <div className="kabuk">
-          <div className="bolum-kapak bolum-kapak--orta">
-            <p className="ustyazi">Formül yok, sürpriz yok</p>
-            <h2 className="bolum-baslik" id="adim-baslik">
-              Üç adımda anlaşılır sonuç
-            </h2>
-          </div>
-
-          <div className="adim-izgara">
-            {ADIMLAR.map((adim, index) => (
-              <article className="adim" key={adim.baslik}>
-                <span className="adim__no" aria-hidden="true">
-                  {index + 1}
-                </span>
-                <h3>{adim.baslik}</h3>
-                <p>{adim.metin}</p>
-              </article>
-            ))}
           </div>
 
           {canInstall && (
