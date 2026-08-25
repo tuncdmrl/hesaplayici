@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { advisor } from '../config/advisor.js'
 import { MonthKey } from '../domain/MonthKey.js'
 import { MoneyFormatter } from '../domain/Money.js'
@@ -9,7 +9,7 @@ import { useRoute } from '../app/Router.jsx'
 import { usePlanSession } from '../app/PlanSession.jsx'
 import { useInstallPrompt } from '../app/useInstallPrompt.js'
 import { Icon } from '../ui/Icon.jsx'
-import { Stamp } from '../ui/shell.jsx'
+import { BrandMark, Stamp } from '../ui/shell.jsx'
 
 /** Karşılama ekranında gösterilen, gerçekten hesaplanmış örnek plan. */
 const ORNEK_TUTAR = 1_500_000_00
@@ -111,10 +111,168 @@ const ADIMLAR = [
   },
 ]
 
+/** iPhone/iPad ve düğmesiz tarayıcılar için elle ekleme adımları. */
+const KUR_ADIMLARI = {
+  ios: [
+    { ikon: 'iosShare', metin: 'Paylaş simgesine dokunun' },
+    { ikon: 'plusSquare', metin: 'Listeyi kaydırıp “Ana Ekrana Ekle”ye dokunun' },
+    { ikon: 'check', metin: 'Sağ üstteki “Ekle”ye dokunun, bitti' },
+  ],
+  menu: [
+    { ikon: 'menuDots', metin: 'Tarayıcı menüsünü açın' },
+    { ikon: 'plusSquare', metin: '“Uygulamayı yükle” / “Ana ekrana ekle”yi seçin' },
+    { ikon: 'check', metin: 'Onaylayın, simge ana ekranınızda' },
+  ],
+}
+
+/**
+ * Düğmeyle kurulum yapılamayan tarayıcılarda açılan yönerge penceresi.
+ *
+ * iOS'ta ana ekrana ekleme için tarayıcıya açılmış bir API yok; kullanıcının
+ * Paylaş menüsünden geçmesi şart. Bu yüzden düğme tek kalır, adımlar ancak
+ * düğmeye basıldığında ve gereken cihazda görünür.
+ */
+function InstallSheet({ platform, pad, onClose }) {
+  const pencereRef = useRef(null)
+
+  useEffect(() => {
+    // Odak pencereye alınır; kapatma düğmesine verilse açılışta halka çiziliyor.
+    pencereRef.current?.focus()
+
+    const tus = (event) => {
+      if (event.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', tus)
+
+    // Pencere açıkken arkadaki sayfa kaymasın.
+    const eskiTasma = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.removeEventListener('keydown', tus)
+      document.body.style.overflow = eskiTasma
+    }
+  }, [onClose])
+
+  const ios = platform === 'ios'
+
+  return (
+    <div className="kur-perde" role="presentation" onClick={onClose}>
+      <div
+        className="kur-pencere"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="kur-pencere-baslik"
+        tabIndex={-1}
+        ref={pencereRef}
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="kur-pencere__ust">
+          <h3 id="kur-pencere-baslik">
+            {ios ? 'Ana ekrana eklemek için iki dokunuş' : 'Ana ekrana eklemek için'}
+          </h3>
+          <button
+            className="kur-pencere__kapat"
+            type="button"
+            onClick={onClose}
+            aria-label="Kapat"
+          >
+            <Icon name="close" size={20} />
+          </button>
+        </div>
+
+        <p className="kur-pencere__giris">
+          {ios
+            ? 'iPhone ve iPad’de kurulumu düğmeye bağlamaya Apple izin vermiyor. Yol da kısa:'
+            : 'Tarayıcınız kurulumu düğmeye bağlamıyor; menüden iki adımda ekleyebilirsiniz:'}
+        </p>
+
+        <ol className="kur-adimlar">
+          {KUR_ADIMLARI[platform].map((adim, index) => (
+            <li key={adim.metin}>
+              <span className="kur-adimlar__no" aria-hidden="true">
+                {index + 1}
+              </span>
+              <Icon name={adim.ikon} size={19} />
+              <span>{adim.metin}</span>
+            </li>
+          ))}
+        </ol>
+
+        {ios && (
+          <p className={`kur-isaret ${pad ? 'kur-isaret--yukari' : ''}`}>
+            <Icon name="arrowDown" size={20} />
+            Paylaş simgesi tarayıcının {pad ? 'üst' : 'alt'} çubuğunda
+          </p>
+        )}
+
+        <button className="dugme dugme--birincil dugme--genis" type="button" onClick={onClose}>
+          Anladım
+        </button>
+      </div>
+    </div>
+  )
+}
+
+/**
+ * Ana ekrana ekleme bölümü.
+ *
+ * Her cihazda tek bir düğme görünür: kurulum olayını veren tarayıcılarda düğme
+ * doğrudan kurar, vermeyenlerde yönerge penceresini açar. Uygulama zaten ana
+ * ekrandan açılmışsa bölüm hiç çizilmez.
+ */
+function InstallSection() {
+  const { canInstall, install, installed, platform, pad } = useInstallPrompt()
+  const [yonergeAcik, setYonergeAcik] = useState(false)
+  const kapat = useCallback(() => setYonergeAcik(false), [])
+
+  if (installed) return null
+
+  return (
+    <section className="kur-bolumu" aria-labelledby="kur-baslik">
+      <div className="kabuk">
+        <div className="kur-kart">
+          <div className="kur-telefon" aria-hidden="true">
+            <span className="kur-telefon__cerceve">
+              <span className="kur-telefon__centik" />
+              <BrandMark className="kur-telefon__rozet" />
+              <span className="kur-telefon__ad">Ödeme Planı</span>
+            </span>
+          </div>
+
+          <div className="kur-kart__metin">
+            <p className="ustyazi">Uygulama gibi kullanın</p>
+            <h2 className="bolum-baslik" id="kur-baslik">
+              Telefonunuza kısayol ekleyin
+            </h2>
+            <p className="kur-kart__aciklama">
+              Ana ekranınıza bir simge düşer; hesaplayıcı tek dokunuşla, tarayıcı adresi yazmadan
+              açılır. Uygulama mağazasına gerek yok, yer kaplamaz ve ilk açılıştan sonra internet
+              olmadan da çalışır.
+            </p>
+
+            <div className="kur-kart__eylem">
+              <button
+                className="dugme dugme--birincil"
+                type="button"
+                onClick={canInstall ? install : () => setYonergeAcik(true)}
+              >
+                <Icon name="download" size={19} />
+                Telefona ekle
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {yonergeAcik && <InstallSheet platform={platform} pad={pad} onClose={kapat} />}
+    </section>
+  )
+}
+
 export function HomePage() {
   const { navigate } = useRoute()
   const session = usePlanSession()
-  const { canInstall, install } = useInstallPrompt()
   const ornek = useExamplePlan()
 
   function baslat(mode) {
@@ -203,27 +361,10 @@ export function HomePage() {
               </span>
             </button>
           </div>
-
-          {canInstall && (
-            <div className="kur-kart">
-              <span className="mod-kart__ikon" aria-hidden="true">
-                <Icon name="phoneAdd" />
-              </span>
-              <div className="kur-kart__metin">
-                <h3>Hesaplayıcıyı telefonunuza ekleyin</h3>
-                <p>
-                  Ana ekranınızdan tek dokunuşla açılır, ilk açılıştan sonra internet olmadan da
-                  çalışır.
-                </p>
-              </div>
-              <button className="dugme dugme--ikincil" type="button" onClick={install}>
-                <Icon name="download" size={19} />
-                Telefona ekle
-              </button>
-            </div>
-          )}
         </div>
       </section>
+
+      <InstallSection />
 
       <section className="danisman-bolumu" aria-labelledby="danisman-baslik">
         <div className="kabuk">
@@ -233,9 +374,7 @@ export function HomePage() {
               <h2 className="danisman-kart__ad" id="danisman-baslik">
                 {advisor.fullName}
               </h2>
-              <p className="danisman-kart__unvan">
-                {advisor.company} {advisor.branch} · {advisor.title}
-              </p>
+              <p className="danisman-kart__unvan">{advisor.title}</p>
               <p className="danisman-kart__soz">
                 Hesaplayıcı size fikir verir; rakamları güncel koşullarla birlikte gözden geçirmek
                 ve size en uygun kurguyu bulmak benim işim. Planınızı gönderin, aynı gün dönüş

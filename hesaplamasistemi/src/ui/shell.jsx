@@ -114,9 +114,7 @@ export function SiteFooter() {
             <BrandMark />
             <span>
               <strong className="alt-bilgi__ad">{advisor.fullName}</strong>
-              <span className="alt-bilgi__unvan">
-                {advisor.company} · {advisor.title}
-              </span>
+              <span className="alt-bilgi__unvan">{advisor.title}</span>
             </span>
           </div>
 

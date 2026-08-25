@@ -2,7 +2,7 @@
   "name": "anahtar-ayi",
   "private": true,
   "version": "1.0.0",
-  "description": "Merve Demirel · Birevim Pendik Şubesi — tasarruf finansmanı ödeme planı hesaplayıcı",
+  "description": "Merve Demirel · faizsiz tasarruf finansmanı ödeme planı hesaplayıcı",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -9,8 +9,6 @@ export const advisor = Object.freeze({
   /** WhatsApp ve metinlerde kullanılan hitap. */
   salutation: 'Merve Hanım',
   title: 'Pendik Şube Müdürü',
-  company: 'Birevim',
-  branch: 'Pendik Şubesi',
   city: 'İstanbul',
   phone: Object.freeze({
     /** tel: bağlantısı için. */

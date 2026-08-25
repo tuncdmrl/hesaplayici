@@ -1,6 +1,6 @@
-# Anahtar Ayı
+# Ödeme Planı Hesaplayıcı
 
-Merve Demirel (Birevim Pendik Şube Müdürü) için tasarruf finansmanı ödeme planı
+Merve Demirel (Pendik Şube Müdürü) için tasarruf finansmanı ödeme planı
 hesaplayıcı. Kullanıcı hedef tutarını girer; teslimat ayını, vadesini ve ay ay
 ödeme tablosunu görür, planı PDF olarak indirir ve tek dokunuşla WhatsApp’tan
 gönderir.

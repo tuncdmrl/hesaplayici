@@ -447,28 +447,320 @@
 
 /* ---------------------------------------------------------- telefona ekle kartı */
 
+.kur-bolumu {
+  padding-block: var(--bosluk-bolum) 0;
+}
+
 .kur-kart {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem 1.5rem;
-  margin-top: 1.25rem;
-  padding: 1.25rem 1.4rem;
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 2.75rem);
+  justify-items: center;
+  text-align: center;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
   border: 1.5px dashed var(--cizgi-koyu);
   border-radius: var(--kose);
-  background: var(--kagit);
+  background:
+    radial-gradient(120% 100% at 0% 0%, var(--kirmizi-sis), transparent 55%), var(--kagit);
+}
+
+/* Telefon görseline yer kalmadığında tek sütuna düşer. */
+@media (min-width: 760px) {
+  .kur-kart {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    justify-items: start;
+    text-align: start;
+  }
 }
 
 .kur-kart__metin {
-  flex: 1 1 18rem;
+  max-width: 46ch;
 }
 
-.kur-kart h3 {
-  font-size: 1.08rem;
-  margin-bottom: 0.25rem;
-}
-
-.kur-kart p {
-  font-size: 0.92rem;
+.kur-kart__aciklama {
+  margin-top: 0.85rem;
+  font-size: 0.97rem;
+  line-height: 1.6;
   color: var(--murekkep-orta);
+}
+
+.kur-kart__eylem {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem 1.1rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 760px) {
+  .kur-kart__eylem {
+    justify-content: flex-start;
+  }
+}
+
+/* --------------------------------- kurulum yönergesi (düğmeye basınca açılır) */
+
+.kur-perde {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+  background: rgba(23, 9, 12, 0.55);
+  backdrop-filter: blur(3px);
+  animation: kur-perde-ac 160ms ease;
+}
+
+@media (min-width: 640px) {
+  .kur-perde {
+    align-items: center;
+    padding: 1.5rem;
+  }
+}
+
+.kur-pencere {
+  width: min(28rem, 100%);
+  max-height: 90dvh;
+  overflow-y: auto;
+  padding: 1.4rem 1.35rem calc(1.35rem + env(safe-area-inset-bottom));
+  background: var(--kagit);
+  border-radius: var(--kose) var(--kose) 0 0;
+  box-shadow: 0 -20px 50px -25px rgba(23, 9, 12, 0.7);
+  animation: kur-pencere-ac 220ms cubic-bezier(0.32, 0.72, 0.35, 1);
+}
+
+.kur-pencere:focus {
+  outline: none;
+}
+
+@media (min-width: 640px) {
+  .kur-pencere {
+    border-radius: var(--kose);
+    padding-bottom: 1.35rem;
+  }
+}
+
+.kur-pencere__ust {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.kur-pencere__ust h3 {
+  flex: 1;
+  font-size: 1.15rem;
+  letter-spacing: -0.025em;
+}
+
+.kur-pencere__kapat {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  margin: -0.3rem -0.3rem 0 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--zemin);
+  color: var(--murekkep-orta);
+  cursor: pointer;
+}
+
+.kur-pencere__kapat:hover {
+  background: var(--zemin-koyu);
+  color: var(--murekkep);
+}
+
+.kur-pencere__giris {
+  font-size: 0.94rem;
+  line-height: 1.55;
+  color: var(--murekkep-orta);
+}
+
+.kur-pencere .kur-adimlar {
+  margin-top: 1.1rem;
+}
+
+.kur-pencere .kur-adimlar li {
+  background: var(--zemin);
+  border-color: transparent;
+  align-items: flex-start;
+}
+
+.kur-pencere .dugme {
+  margin-top: 1.25rem;
+}
+
+/* Paylaş simgesinin bulunduğu çubuğa bakan, hafifçe zıplayan işaret. */
+.kur-isaret {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.1rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--kirmizi-koyu);
+}
+
+.kur-isaret svg {
+  animation: kur-isaret-in 1.6s ease-in-out infinite;
+}
+
+.kur-isaret--yukari svg {
+  transform: rotate(180deg);
+  animation-name: kur-isaret-cik;
+}
+
+@keyframes kur-perde-ac {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes kur-pencere-ac {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+@keyframes kur-isaret-in {
+  0%,
+  100% {
+    transform: translateY(-3px);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+}
+
+@keyframes kur-isaret-cik {
+  0%,
+  100% {
+    transform: rotate(180deg) translateY(-3px);
+  }
+  50% {
+    transform: rotate(180deg) translateY(3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kur-perde,
+  .kur-pencere,
+  .kur-isaret svg {
+    animation: none;
+  }
+}
+
+/* Kurulum düğmesi olmayan tarayıcılarda gösterilen elle ekleme adımları. */
+.kur-adimlar {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: start;
+}
+
+.kur-adimlar li {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--cizgi);
+  border-radius: var(--kose-kucuk);
+  background: var(--kagit);
+  font-size: 0.94rem;
+  font-weight: 600;
+}
+
+.kur-adimlar__no {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.55rem;
+  height: 1.55rem;
+  border-radius: 50%;
+  background: var(--kirmizi);
+  color: #fff;
+  font-family: var(--yazi-veri);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.kur-adimlar svg {
+  flex: none;
+  color: var(--kirmizi);
+}
+
+/* Ana ekranda nasıl görüneceğini gösteren küçük telefon maketi. */
+.kur-telefon__cerceve {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 0.5rem;
+  width: clamp(5.75rem, 20vw, 7.5rem);
+  aspect-ratio: 9 / 17;
+  padding: 1.6rem 0.75rem 0.75rem;
+  border: 3px solid var(--murekkep);
+  border-radius: 1.5rem;
+  background: linear-gradient(170deg, #fff 0%, var(--zemin) 45%, var(--zemin-koyu) 100%);
+  box-shadow: var(--golge-belge);
+}
+
+.kur-telefon__centik {
+  position: absolute;
+  top: 0.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2.4rem;
+  height: 0.3rem;
+  border-radius: var(--kose-hap);
+  background: var(--murekkep);
+  opacity: 0.85;
+}
+
+.kur-telefon__rozet {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 15px;
+  animation: kur-zipla 3.4s ease-in-out infinite;
+}
+
+.kur-telefon__rozet svg {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.kur-telefon__ad {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--murekkep-orta);
+}
+
+@keyframes kur-zipla {
+  0%,
+  70%,
+  100% {
+    transform: translateY(0);
+  }
+  80% {
+    transform: translateY(-5px);
+  }
+  90% {
+    transform: translateY(-2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kur-telefon__rozet {
+    animation: none;
+  }
 }
