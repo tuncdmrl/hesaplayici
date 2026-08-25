@@ -26,7 +26,8 @@ export default defineConfig([
     rules: { 'react-refresh/only-export-components': 'off' },
   },
   {
-    files: ['scripts/**/*.mjs'],
+    // Derleme betikleri ve Vite yapılandırması Node ortamında çalışır.
+    files: ['scripts/**/*.mjs', 'vite.config.js', 'eslint.config.js'],
     languageOptions: { globals: globals.node },
   },
 ])

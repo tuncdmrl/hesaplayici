@@ -11,6 +11,7 @@
     "lint": "eslint .",
     "test": "node scripts/test-engine.mjs",
     "icons": "node scripts/build-icons.mjs",
+    "og": "node scripts/build-og.mjs",
     "pdf:fonts": "node scripts/build-pdf-fonts.mjs",
     "pdf:preview": "node scripts/pdf-render.mjs ornek-plan.pdf",
     "shots": "node scripts/screenshots.mjs"

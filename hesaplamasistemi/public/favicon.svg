@@ -1,8 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Anahtar Ayı">
-  <rect width="64" height="64" rx="14" fill="#d70014" />
-  <g fill="none" stroke="#ffffff" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="40" cy="24" r="9" />
-    <path d="M33.6 30.4 18 46l4 4" />
-    <path d="m25 43 3.5 3.5" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Ödeme Planı Hesaplayıcı">
+  <defs>
+    <linearGradient id="rozet" x1="0" y1="0" x2="0.55" y2="1">
+      <stop offset="0" stop-color="#ff4356" />
+      <stop offset="0.46" stop-color="#d70014" />
+      <stop offset="1" stop-color="#78000c" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#rozet)" />
+  <g transform="translate(8 8) scale(2)">
+    <g transform="rotate(45 12 12)" fill="#ffffff">
+      <path
+        fill-rule="evenodd"
+        d="M12 2.8a4.2 4.2 0 1 1 0 8.4 4.2 4.2 0 0 1 0-8.4Zm0 2.55a1.65 1.65 0 1 0 0 3.3 1.65 1.65 0 0 0 0-3.3Z"
+      />
+      <path d="M10.9 9.8h2.2v5.4h3.1v1.7h-3.1v1.4h2.3v1.7h-2.3v.9a1.1 1.1 0 0 1-2.2 0V9.8Z" />
+    </g>
   </g>
 </svg>

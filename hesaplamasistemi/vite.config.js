@@ -3,6 +3,30 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
 /**
+ * Sitenin mutlak adresi.
+ *
+ * WhatsApp ve Twitter önizlemesi göreli adresle çalışmaz; kapak görselinin tam
+ * adresi gerekir. Vercel derleme sırasında üretim alan adını ortam
+ * değişkeninde verir, yerelde göreli adrese düşeriz. Kendi alan adınızı
+ * `SITE_URL` ile de verebilirsiniz.
+ */
+const siteUrl =
+  process.env.SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : '')
+
+/** index.html içindeki %SITE_URL% yer tutucusunu doldurur. */
+function siteUrlPlugin() {
+  return {
+    name: 'site-url',
+    transformIndexHtml(html) {
+      return html.replaceAll('%SITE_URL%', siteUrl)
+    },
+  }
+}
+
+/**
  * Backend yok: tamamen statik bir tek sayfa uygulaması olarak derlenir ve
  * Vercel'e olduğu gibi yüklenir. PWA eklentisi "telefona ekle" desteğini ve
  * çevrimdışı çalışmayı sağlar.
@@ -10,12 +34,14 @@ import { VitePWA } from 'vite-plugin-pwa'
 export default defineConfig({
   plugins: [
     react(),
+    siteUrlPlugin(),
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'app-icon-192.png', 'app-icon-512.png'],
       manifest: {
-        name: 'Anahtar Ayı · Ödeme Planı Hesaplayıcı',
-        short_name: 'Anahtar Ayı',
+        name: 'Ödeme Planı Hesaplayıcı',
+        /* Ana ekrandaki simgenin altında görünen ad; uzun adlar kırpılır. */
+        short_name: 'Ödeme Planı',
         description:
           'Faizsiz tasarruf finansmanı ödeme planınızı hesaplayın, PDF olarak indirin.',
         lang: 'tr',
@@ -39,8 +65,14 @@ export default defineConfig({
       workbox: {
         navigateFallback: '/index.html',
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
-        // jsPDF'in hiç kullanmadığımız isteğe bağlı bağımlılıkları önbelleğe alınmaz.
-        globIgnores: ['**/html2canvas-*.js', '**/purify.es-*.js', '**/index.es-*.js'],
+        // jsPDF'in hiç kullanmadığımız isteğe bağlı bağımlılıkları ve yalnızca
+        // paylaşım önizlemesinde kullanılan kapak görseli önbelleğe alınmaz.
+        globIgnores: [
+          '**/html2canvas-*.js',
+          '**/purify.es-*.js',
+          '**/index.es-*.js',
+          '**/og.png',
+        ],
         maximumFileSizeToCacheInBytes: 4_000_000,
         runtimeCaching: [
           {

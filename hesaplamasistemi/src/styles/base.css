@@ -415,6 +415,54 @@ a {
   border: 0;
 }
 
+/* ------------------------------------------------------- beklenmeyen hata ekranı */
+
+.hata-ekrani {
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+  padding-block: 3rem;
+}
+
+.hata-ekrani__ic {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  max-width: 46ch;
+  text-align: center;
+}
+
+.hata-ekrani__isaret {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50%;
+  background: var(--kirmizi-sis);
+  color: var(--kirmizi);
+}
+
+.hata-ekrani__isaret svg {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.hata-ekrani h1 {
+  font-size: var(--olcu-orta);
+}
+
+.hata-ekrani p {
+  color: var(--murekkep-orta);
+}
+
+.hata-ekrani__eylemler {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-top: 0.5rem;
+}
+
 @keyframes yumusak-giris {
   from {
     opacity: 0;
