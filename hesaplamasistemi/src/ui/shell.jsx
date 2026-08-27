@@ -97,10 +97,10 @@ export function WhatsAppButton({ plan = null }) {
       href={contactService.whatsAppLink(plan)}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={`WhatsApp'tan ${advisor.fullName}'e yaz`}
+      aria-label={`Danışmanlık için WhatsApp'tan ${advisor.fullName}'e yazın`}
     >
       <Icon name="whatsapp" />
-      <span className="wp-dugme__yazi">{advisor.salutation}’a yaz</span>
+      <span className="wp-dugme__yazi">Danışmanlık için tıklayın</span>
     </a>
   )
 }
