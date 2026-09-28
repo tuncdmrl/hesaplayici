@@ -218,14 +218,14 @@
 
 .alt-bilgi {
   margin-top: var(--bosluk-bolum);
-  border-top: 1px solid var(--cizgi);
-  background: var(--kagit);
-  padding-block: clamp(2.5rem, 5vw, 3.5rem) 6.5rem;
+  background: var(--zemin);
+  border-top: 1px solid var(--cizgi-koyu);
+  padding-block: clamp(2.5rem, 5vw, 3.5rem) clamp(2rem, 4vw, 2.5rem);
 }
 
 .alt-bilgi__ic {
   display: grid;
-  gap: 2rem;
+  gap: clamp(2rem, 4vw, 2.5rem);
 }
 
 .alt-bilgi__ust {
@@ -273,28 +273,68 @@
   text-decoration: underline;
 }
 
+.alt-bilgi__yasal-kutu {
+  padding-block: clamp(1.5rem, 3vw, 2rem);
+  border-top: 1px solid var(--cizgi);
+}
+
 .alt-bilgi__yasal {
   font-size: 0.82rem;
   line-height: 1.6;
   color: var(--murekkep-acik);
   max-width: 70ch;
+  margin: 0;
+}
+
+.alt-bilgi__alt {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem 2rem;
+  padding-top: clamp(1.25rem, 2.5vw, 1.75rem);
+  border-top: 1px solid var(--cizgi);
+  font-size: 0.85rem;
+}
+
+.alt-bilgi__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.7rem;
+  color: var(--murekkep-acik);
+}
+
+.alt-bilgi__ayrac {
+  color: var(--cizgi-koyu);
+  user-select: none;
+}
+
+.alt-bilgi__telif,
+.alt-bilgi__tarih {
+  white-space: nowrap;
 }
 
 .alt-bilgi__kredi {
-  font-size: 0.8rem;
   color: var(--murekkep-acik);
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--cizgi);
+  white-space: nowrap;
 }
 
 .alt-bilgi__kredi a {
-  color: var(--murekkep-orta);
+  color: var(--murekkep);
   font-weight: 600;
   text-decoration: none;
+  transition: color var(--gecis);
 }
 
 .alt-bilgi__kredi a:hover {
   color: var(--kirmizi-koyu);
   text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .alt-bilgi__alt {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

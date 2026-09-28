@@ -32,6 +32,9 @@ function siteUrlPlugin() {
  * çevrimdışı çalışmayı sağlar.
  */
 export default defineConfig({
+  define: {
+    __BUILD_DATE__: JSON.stringify(new Date().toLocaleDateString('tr-TR')),
+  },
   plugins: [
     react(),
     siteUrlPlugin(),

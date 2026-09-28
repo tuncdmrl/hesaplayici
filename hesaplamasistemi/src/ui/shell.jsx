@@ -127,18 +127,27 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <p className="alt-bilgi__yasal">{site.disclaimer}</p>
+        <div className="alt-bilgi__yasal-kutu">
+          <p className="alt-bilgi__yasal">{site.disclaimer}</p>
+        </div>
 
-        <p className="alt-bilgi__kredi">
-          Created by{' '}
-          <a
-            href="https://tuncdemirel.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Tunç Demirel
-          </a>
-        </p>
+        <div className="alt-bilgi__alt">
+          <div className="alt-bilgi__meta">
+            <span className="alt-bilgi__telif">© {new Date().getFullYear()} {site.name}</span>
+            <span className="alt-bilgi__ayrac">•</span>
+            <span className="alt-bilgi__tarih">Son güncelleme: {typeof __BUILD_DATE__ !== 'undefined' ? __BUILD_DATE__ : '—'}</span>
+          </div>
+          <div className="alt-bilgi__kredi">
+            Yapımcı:{' '}
+            <a
+              href="https://tuncdemirel.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Tunç Demirel
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
   )
