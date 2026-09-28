@@ -279,3 +279,22 @@
   color: var(--murekkep-acik);
   max-width: 70ch;
 }
+
+.alt-bilgi__kredi {
+  font-size: 0.8rem;
+  color: var(--murekkep-acik);
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--cizgi);
+}
+
+.alt-bilgi__kredi a {
+  color: var(--murekkep-orta);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.alt-bilgi__kredi a:hover {
+  color: var(--kirmizi-koyu);
+  text-decoration: underline;
+}

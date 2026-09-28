@@ -128,6 +128,17 @@ export function SiteFooter() {
         </div>
 
         <p className="alt-bilgi__yasal">{site.disclaimer}</p>
+
+        <p className="alt-bilgi__kredi">
+          Created by{' '}
+          <a
+            href="https://tuncdemirel.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Tunç Demirel
+          </a>
+        </p>
       </div>
     </footer>
   )
