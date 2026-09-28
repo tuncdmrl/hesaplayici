@@ -134,11 +134,9 @@ export function SiteFooter() {
         <div className="alt-bilgi__alt">
           <div className="alt-bilgi__meta">
             <span className="alt-bilgi__telif">© {new Date().getFullYear()} {site.name}</span>
-            <span className="alt-bilgi__ayrac">•</span>
-            <span className="alt-bilgi__tarih">Son güncelleme: {typeof __BUILD_DATE__ !== 'undefined' ? __BUILD_DATE__ : '—'}</span>
           </div>
           <div className="alt-bilgi__kredi">
-            Yapımcı:{' '}
+            Created by{' '}
             <a
               href="https://tuncdemirel.vercel.app"
               target="_blank"

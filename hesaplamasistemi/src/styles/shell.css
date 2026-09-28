@@ -305,13 +305,7 @@
   color: var(--murekkep-acik);
 }
 
-.alt-bilgi__ayrac {
-  color: var(--cizgi-koyu);
-  user-select: none;
-}
-
-.alt-bilgi__telif,
-.alt-bilgi__tarih {
+.alt-bilgi__telif {
   white-space: nowrap;
 }
 
